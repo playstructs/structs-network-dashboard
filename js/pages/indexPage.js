@@ -1,3 +1,11 @@
+import {StructsApi} from "../api/StructsApi.js";
+
+// API Test
+const api = new StructsApi();
+api.getReactors().then(data => {
+    console.log(data);
+});
+
 const ctx = document.getElementById('leaderboard');
 
 new Chart(ctx, {
