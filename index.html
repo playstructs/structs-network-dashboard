@@ -1,71 +1,21 @@
 <!doctype html>
-<html>
+<html class="no-js" lang="us-en">
   <head>
-    <title>Chart Test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Structs Network Dashboard</title>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="/css/main.css">
   </head>
   <body>
-    <style>
-      body {
-        text-align: center;
-      }
-      .chartContainer {
-        display: inline-block;
-        height: 100%;
-        width: 100%;
-        max-height: 600px;
-        max-width: 600px;
-      }
-    </style>
 
-    <div class="chartContainer">
-      <canvas id="myChart"></canvas>
+    <div class="leaderboardWrapper">
+      <canvas id="leaderboard"></canvas>
     </div>
 
     <script src="/js/vendor/chart.min.js"></script>
-
-    <script>
-      const ctx = document.getElementById('myChart');
-
-      new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: [
-            'Alpha Matter Infused',
-            'Players',
-            'Energy Output',
-            'Load',
-          ],
-          datasets: [{
-            label: "Jerry's Lawncare",
-            data: [65, 59, 90, 81],
-            fill: true,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
-            pointBackgroundColor: 'rgb(255, 99, 132)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(255, 99, 132)'
-          }, {
-            label: 'Bit-Sifters',
-            data: [28, 48, 40, 19],
-            fill: true,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgb(54, 162, 235)',
-            pointBackgroundColor: 'rgb(54, 162, 235)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(54, 162, 235)'
-          }]
-        },
-        options: {
-          responsive: true,
-          elements: {
-            line: {
-              borderWidth: 3
-            }
-          }
-        }
-      });
-    </script>
+    <script src="js/pages/indexPage.js" type="module"></script>
   </body>
 </html>
