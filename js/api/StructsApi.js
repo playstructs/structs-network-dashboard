@@ -1,10 +1,11 @@
 import {STRUCTS_API} from "../Constants.js";
 import {JsonAjaxer} from "../vendor/JsonAjaxer.js";
+import {ReactorFactory} from "../modules/models/ReactorFactory.js";
 
 export class StructsApi {
     /**
      * @param {string} scheme example https://
-     * @param {string} domain example coindroids.com
+     * @param {string} domain example structs.so
      * @param {Object} ajax AJAX handling class
      */
     constructor(ajax = null, scheme= STRUCTS_API.SCHEME, domain = STRUCTS_API.DOMAIN) {
@@ -14,18 +15,21 @@ export class StructsApi {
     }
 
     /**
-     * @param {object} data
-     * @return {object}
-     */
-    reactorsResponseHandler(data) {
-        return data;
-    }
-
-    /**
-     * @returns {Promise<object>}
+     * @returns {Promise<Reactor[]>}
      */
     getReactors() {
         return this.ajax.get(`${this.scheme}${this.domain}/structs/reactor`)
-            .then(this.reactorsResponseHandler.bind(this));
+            .then(data => {
+                const reactorFactory = new ReactorFactory();
+                /** @var {Array} rawReactors */
+                const rawReactors = data['Reactor'];
+                let reactors = [];
+
+                for (let i = 0; i < rawReactors.length; i++) {
+                    reactors[i] = reactorFactory.makeFromObject(rawReactors[i]);
+                }
+
+                return reactors;
+            });
     }
 }
