@@ -1,9 +1,14 @@
-import {StructsApi} from "../api/StructsApi.js";
+import {DataAggregator} from "../modules/DataAggregator.js";
+import {DataSorter} from "../modules/DataSorter.js";
 
 // API Test
-const api = new StructsApi();
-api.getReactors().then(data => {
-    console.log(data);
+const dataAggregator = new DataAggregator();
+const dataSorter = new DataSorter();
+dataAggregator.fetchAggregateGuildData().then(guilds => {
+    console.log('fetchAggregateGuildData', guilds);
+    console.log('sortByEnergy', dataSorter.sortGuildsByEnergy([...guilds]));
+    console.log('sortByFuel', dataSorter.sortGuildsByFuel([...guilds]));
+    console.log('sortByLoad', dataSorter.sortGuildsByLoad([...guilds]));
 });
 
 const ctx = document.getElementById('leaderboard');

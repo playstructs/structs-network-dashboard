@@ -1,6 +1,7 @@
 import {STRUCTS_API} from "../Constants.js";
 import {JsonAjaxer} from "../vendor/JsonAjaxer.js";
 import {ReactorFactory} from "../modules/models/ReactorFactory.js";
+import {GuildFactory} from "../modules/models/GuildFactory.js";
 
 export class StructsApi {
     /**
@@ -30,6 +31,26 @@ export class StructsApi {
                 }
 
                 return reactors;
+            });
+    }
+
+    /**
+     * @return {Promise<Map<string, Guild>>}
+     */
+    getGuildsMap() {
+        return this.ajax.get(`${this.scheme}${this.domain}/structs/guild`)
+            .then(data => {
+                const guildFactory = new GuildFactory();
+                /** @var {Array} rawGuilds */
+                const rawGuilds = data['Guild'];
+                let guilds = new Map();
+
+                for (let i = 0; i < rawGuilds.length; i++) {
+                    const guild = guildFactory.makeFromObject(rawGuilds[i]);
+                    guilds.set(guild.id, guild);
+                }
+
+                return guilds;
             });
     }
 }
