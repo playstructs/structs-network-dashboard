@@ -23,4 +23,12 @@ export class DataSorter {
     sortGuildsByLoad(guilds) {
         return guilds.sort((a, b) => b.load - a.load);
     }
+
+    /**
+     * @param {Guild[]} guilds
+     * @return {Guild[]}
+     */
+    sortGuildsByMemberCounts(guilds) {
+        return guilds.sort((a, b) => b.membersCount - a.membersCount);
+    }
 }

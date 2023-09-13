@@ -5,5 +5,6 @@ export class Guild {
         this.fuel = 0;
         this.energy = 0;
         this.load = 0;
+        this.membersCount = 0;
     }
 }

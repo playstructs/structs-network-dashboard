@@ -9,6 +9,7 @@ dataAggregator.fetchAggregateGuildData().then(guilds => {
     console.log('sortByEnergy', dataSorter.sortGuildsByEnergy([...guilds]));
     console.log('sortByFuel', dataSorter.sortGuildsByFuel([...guilds]));
     console.log('sortByLoad', dataSorter.sortGuildsByLoad([...guilds]));
+    console.log('sortByMemberCounts', dataSorter.sortGuildsByMemberCounts([...guilds]));
 });
 
 const ctx = document.getElementById('leaderboard');

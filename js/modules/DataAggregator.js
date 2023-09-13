@@ -51,30 +51,37 @@ export class DataAggregator {
      async fetchAggregateGuildData() {
         const guilds = [];
         await this.structsApi.getReactors().then(async reactors => {
+            await this.structsApi.getGuildMemberCountsMap().then(async guildMemberCounts => {
+                await this.structsApi.getGuildsMap().then(guildsMap => {
 
-            const energyPerGuild = this.getEnergyPerGuild(reactors);
-            const fuelPerGuild = this.getFuelPerGuild(reactors);
-            const loadPerGuild = this.getLoadPerGuild(reactors);
+                    const energyPerGuild = this.getEnergyPerGuild(reactors);
+                    const fuelPerGuild = this.getFuelPerGuild(reactors);
+                    const loadPerGuild = this.getLoadPerGuild(reactors);
 
-            await this.structsApi.getGuildsMap().then(guildsMap => {
+                    // Each unaffiliated reactor is treated as its own guild
+                    const guildIdsFromReactors = fuelPerGuild.keys();
 
-                // Each unaffiliated reactor is treated as its own guild
-                const guildIdsFromReactors = fuelPerGuild.keys();
+                    guildIdsFromReactors.forEach(guildId => {
+                        let guild = new Guild();
 
-                guildIdsFromReactors.forEach(guildId => {
-                    let guild = new Guild();
-                    guild.id = guildId;
-                    guild.name = guildId;
+                        // Default id and name if guild is just a reactor
+                        guild.id = guildId;
+                        guild.name = guildId;
 
-                    if (guildsMap.has(guild.id)) {
-                        guild = guildsMap.get(guild.id);
-                    }
+                        // If the guild is an actual guild, pull in the real data
+                        if (guildsMap.has(guild.id)) {
+                            guild = guildsMap.get(guild.id);
+                        }
 
-                    guild.energy = energyPerGuild.get(guild.id);
-                    guild.fuel = fuelPerGuild.get(guild.id);
-                    guild.load = loadPerGuild.get(guild.id);
+                        guild.energy = energyPerGuild.get(guild.id);
+                        guild.fuel = fuelPerGuild.get(guild.id);
+                        guild.load = loadPerGuild.get(guild.id);
+                        guild.membersCount = guildMemberCounts.has(guild.id)
+                            ? guildMemberCounts.has(guild.id)
+                            : 0;
 
-                    guilds.push(guild)
+                        guilds.push(guild)
+                    });
                 });
             });
         });
