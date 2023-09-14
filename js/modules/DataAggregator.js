@@ -1,10 +1,12 @@
 import {StructsApi} from "../api/StructsApi.js";
 import {Guild} from "./models/Guild.js";
+import {ColorBuilder} from "./ColorBuilder.js";
 
 export class DataAggregator {
 
     constructor() {
         this.structsApi = new StructsApi();
+        this.colorBuilder = new ColorBuilder();
     }
 
     /**
@@ -67,6 +69,7 @@ export class DataAggregator {
                         // Default id and name if guild is just a reactor
                         guild.id = guildId;
                         guild.name = guildId;
+                        guild.color = this.colorBuilder.buildRandom();
 
                         // If the guild is an actual guild, pull in the real data
                         if (guildsMap.has(guild.id)) {
