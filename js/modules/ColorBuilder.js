@@ -17,4 +17,14 @@ export class ColorBuilder {
             this.util.getRandomInt(0, 255)
         );
     }
+
+    /**
+     * @param {Color} lineColor
+     * @return {Color}
+     */
+    createFillColorFromLineColor(lineColor) {
+        const fillColor = Object.assign(new Color(0, 0, 0), lineColor);
+        fillColor.a = 0.2;
+        return fillColor;
+    }
 }

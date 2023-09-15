@@ -1,13 +1,19 @@
 import {RadarDatasetDTO} from "../vendor/models/RadarDatasetDTO.js";
 import {Color} from "./Color.js";
+import {Util} from "./Util.js";
 
 export class RadarDatasetBuilder {
 
+    constructor() {
+        this.util = new Util();
+    }
+
     /**
      * @param {Guild} guild
+     * @param {GuildAttributesDTO} minAttributes
      * @param {GuildAttributesDTO} maxAttributes
      */
-    buildRadarDatasetFromGuild(guild, maxAttributes) {
+    buildRadarDatasetFromGuild(guild, minAttributes, maxAttributes) {
         const fillColor = Object.assign(new Color(0, 0, 0), guild.color);
         fillColor.a = 0.2;
         const fillColorCSS = fillColor.toCSS();
@@ -16,10 +22,22 @@ export class RadarDatasetBuilder {
         const dataset = new RadarDatasetDTO();
         dataset.label = guild.name;
         dataset.data = [
-            (guild.fuel / Math.max(maxAttributes.fuel, 1)) * 100,
-            (guild.membersCount / Math.max(maxAttributes.membersCount, 1)) * 100,
-            (guild.load / Math.max(maxAttributes.load, 1)) * 100,
-            (guild.energy / Math.max(maxAttributes.energy, 1)) * 100,
+            this.util.getSafePercentage(
+                guild.fuel - minAttributes.fuel,
+                maxAttributes.fuel - minAttributes.fuel
+            ),
+            this.util.getSafePercentage(
+                guild.membersCount - minAttributes.membersCount,
+                maxAttributes.membersCount - minAttributes.membersCount
+            ),
+            this.util.getSafePercentage(
+                guild.load - minAttributes.load,
+                maxAttributes.load - minAttributes.load
+            ),
+            this.util.getSafePercentage(
+                guild.energy - minAttributes.energy,
+                maxAttributes.energy - minAttributes.energy
+            ),
         ];
         dataset.backgroundColor = fillColorCSS;
         dataset.borderColor = lineColorCSS;

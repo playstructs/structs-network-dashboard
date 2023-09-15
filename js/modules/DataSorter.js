@@ -1,4 +1,11 @@
+import {Guild} from "./models/Guild.js";
+import {GuildAppraiserFactory} from "./GuildAppraiserFactory.js";
+
 export class DataSorter {
+
+    constructor() {
+        this.guildAppraiserFactory = new GuildAppraiserFactory();
+    }
 
     /**
      * @param {Guild[]} guilds
@@ -34,21 +41,15 @@ export class DataSorter {
 
     /**
      * @param {Guild[]} guilds
+     * @param {GuildAttributesDTO} maxAttributes
      * @return {Guild[]}
      */
-    sortGuildsForLeaderboard(guilds) {
-        const sortAttribute = ['fuel', 'membersCount', 'load', 'energy'];
-
+    sortGuildsForLeaderboard(guilds, maxAttributes) {
         return guilds.sort((a, b) => {
-            let comparison = 0;
-            let priority = 0;
+            let aRating = this.guildAppraiserFactory.make(a, maxAttributes);
+            let bRating = this.guildAppraiserFactory.make(b, maxAttributes);
 
-            while (comparison === 0 && priority < sortAttribute.length) {
-                comparison = b[sortAttribute[priority]] - a[sortAttribute[priority]];
-                priority++;
-            }
-
-            return comparison;
-        })
+            return bRating.guildRating - aRating.guildRating;
+        });
     }
 }

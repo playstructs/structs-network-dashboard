@@ -10,6 +10,4 @@ export class RadarDatasetDTO {
         this.pointHoverBackgroundColor = '#fff';
         this.pointHoverBorderColor = 'rgb(255, 99, 132)';
     }
-
-
 }
