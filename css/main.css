@@ -2,10 +2,43 @@ body {
     text-align: center;
 }
 
-.fullWidthChartWrapper {
+.largeChartWrapper {
     display: inline-block;
-    height: 100%;
+    width: 900px;
+    max-width: 100%;
+}
+
+.mediumChartWrapper {
+    display: inline-block;
+    width: 600px;
+    max-width: 100%;
+}
+
+.smallChartWrapper {
+    display: inline-block;
+    width: 400px;
+    max-width: 100%;
+}
+
+.container {
+    margin: 16px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
-    max-height: 600px;
-    max-width: 600px;
+    max-width: 100%;
+    padding: 32px 0;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
 }

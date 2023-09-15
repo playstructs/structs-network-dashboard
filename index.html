@@ -11,16 +11,50 @@
   </head>
   <body>
 
-    <div>
-      <div class="fullWidthChartWrapper">
-        <canvas id="topGuildsChart"></canvas>
-      </div>
-    </div>
+    <div class="container">
 
-    <div>
-      <div class="fullWidthChartWrapper">
-        <canvas id="guildRatingsChart"></canvas>
+      <div class="row">
+        <div class="column">
+          <div class="mediumChartWrapper">
+            <canvas id="topGuildsChart"></canvas>
+          </div>
+        </div>
       </div>
+
+      <div class="row">
+        <div class="column">
+          <div class="largeChartWrapper">
+            <canvas id="guildRatingsChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <div class="smallChartWrapper">
+            <canvas id="fuelChart"></canvas>
+          </div>
+        </div>
+        <div class="column">
+          <div class="smallChartWrapper">
+            <canvas id="guildMembersCountChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <div class="smallChartWrapper">
+            <canvas id="loadChart"></canvas>
+          </div>
+        </div>
+        <div class="column">
+          <div class="smallChartWrapper">
+            <canvas id="energyChart"></canvas>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <script src="/js/vendor/chart.min.js"></script>

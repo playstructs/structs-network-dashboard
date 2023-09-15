@@ -7,6 +7,7 @@ import {ChartConfigsDTO} from "./DTO/ChartConfigsDTO.js";
 import {BarDatasetDTO} from "../vendor/models/BarDatasetDTO.js";
 import {GuildAppraiserFactory} from "./GuildAppraiserFactory.js";
 import {ColorBuilder} from "./ColorBuilder.js";
+import {DoughnutDatasetDTO} from "../vendor/models/DoughnutDatasetDTO.js";
 
 export class ChartBuilder {
     constructor() {
@@ -58,7 +59,7 @@ export class ChartBuilder {
         chartConfig.type = 'radar';
         chartConfig.data.labels = [
             'Alpha Matter Infused',
-            'Players',
+            'Guild Members',
             'Load',
             'Energy Output',
         ];
@@ -121,6 +122,29 @@ export class ChartBuilder {
     }
 
     /**
+     * @param {Guild[]} guilds
+     * @param {string} attribute
+     * @param {string }datasetLabel
+     */
+    buildGuildAttributeDoughnutChartConfig(guilds, attribute, datasetLabel = '') {
+        const sortedGuilds = this.dataSorter.sortGuildsByNumericAttribute(guilds, attribute);
+        const dataset = new DoughnutDatasetDTO();
+        dataset.label = datasetLabel;
+        const chartConfig = new ConfigDTO();
+        chartConfig.type = 'doughnut';
+
+        sortedGuilds.forEach(guild => {
+            chartConfig.data.labels.push(guild.name);
+            dataset.data.push(guild[attribute]);
+            dataset.backgroundColor.push(guild.color.toCSS());
+        });
+
+        chartConfig.data.datasets.push(dataset);
+
+        return chartConfig;
+    }
+
+    /**
      * @return {Promise<ChartConfigsDTO>}
      */
     async buildCharts() {
@@ -141,7 +165,31 @@ export class ChartBuilder {
             chartConfigs.guildRatingsChartConfig = this.buildGuildRatingsChartConfig(
                 guildsSortedForLeaderboard,
                 maxGuildAttributes
-            )
+            );
+
+            chartConfigs.fuelChartConfig = this.buildGuildAttributeDoughnutChartConfig(
+                guilds,
+                'fuel',
+                'Alpha Matter Infused'
+            );
+
+            chartConfigs.memberCountChartConfig = this.buildGuildAttributeDoughnutChartConfig(
+                guilds,
+                'membersCount',
+                'Guild Members'
+            );
+
+            chartConfigs.loadChartConfig = this.buildGuildAttributeDoughnutChartConfig(
+                guilds,
+                'load',
+                'Load'
+            );
+
+            chartConfigs.energyChartConfig = this.buildGuildAttributeDoughnutChartConfig(
+                guilds,
+                'energy',
+                'Energy Output'
+            );
         });
 
         return chartConfigs;

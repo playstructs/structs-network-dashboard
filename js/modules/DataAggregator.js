@@ -80,7 +80,7 @@ export class DataAggregator {
                         guild.fuel = fuelPerGuild.get(guild.id);
                         guild.load = loadPerGuild.get(guild.id);
                         guild.membersCount = guildMemberCounts.has(guild.id)
-                            ? guildMemberCounts.has(guild.id)
+                            ? guildMemberCounts.get(guild.id)
                             : 0;
 
                         guilds.push(guild)
