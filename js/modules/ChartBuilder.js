@@ -94,6 +94,11 @@ export class ChartBuilder {
         const chartConfig = new ConfigDTO();
         chartConfig.type = 'bar';
         chartConfig.options = {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true
