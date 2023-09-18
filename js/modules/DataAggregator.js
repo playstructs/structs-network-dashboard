@@ -61,9 +61,7 @@ export class DataAggregator {
                     const loadPerGuild = this.getLoadPerGuild(reactors);
 
                     // Each unaffiliated reactor is treated as its own guild
-                    const guildIdsFromReactors = fuelPerGuild.keys();
-
-                    guildIdsFromReactors.forEach(guildId => {
+                    fuelPerGuild.forEach((value, guildId) => {
                         let guild = new Guild();
 
                         // Default id and name if guild is just a reactor
