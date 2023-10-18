@@ -1,5 +1,7 @@
 import {ChartBuilder} from "../modules/ChartBuilder.js";
 
+Chart.defaults.font.family = 'courier';
+
 const chartBuilder = new ChartBuilder();
 
 const topGuildsChartElm = document.getElementById('topGuildsChart');

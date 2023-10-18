@@ -8,6 +8,7 @@ import {BarDatasetDTO} from "../vendor/models/BarDatasetDTO.js";
 import {GuildAppraiserFactory} from "./GuildAppraiserFactory.js";
 import {ColorBuilder} from "./ColorBuilder.js";
 import {DoughnutDatasetDTO} from "../vendor/models/DoughnutDatasetDTO.js";
+import {CHART_MAX_GUILDS} from "../Constants.js";
 
 export class ChartBuilder {
     constructor() {
@@ -54,7 +55,7 @@ export class ChartBuilder {
      * @return {ConfigDTO}
      */
     buildTopGuildsChartConfig(sortedGuilds, maxAttributes) {
-        const topGuilds = sortedGuilds.slice(0, 3);
+        const topGuilds = sortedGuilds.slice(0, CHART_MAX_GUILDS.RADAR);
         const chartConfig = new ConfigDTO();
         chartConfig.type = 'radar';
         chartConfig.data.labels = [
@@ -127,7 +128,8 @@ export class ChartBuilder {
      * @param {string }datasetLabel
      */
     buildGuildAttributeDoughnutChartConfig(guilds, attribute, datasetLabel = '') {
-        const sortedGuilds = this.dataSorter.sortGuildsByNumericAttribute(guilds, attribute);
+        let sortedGuilds = this.dataSorter.sortGuildsByNumericAttribute(guilds, attribute);
+        sortedGuilds.length = Math.min(sortedGuilds.length, CHART_MAX_GUILDS.DOUGHNUT);
         const dataset = new DoughnutDatasetDTO();
         dataset.label = datasetLabel;
         const chartConfig = new ConfigDTO();
@@ -136,7 +138,9 @@ export class ChartBuilder {
         sortedGuilds.forEach(guild => {
             chartConfig.data.labels.push(guild.name);
             dataset.data.push(guild[attribute]);
-            dataset.backgroundColor.push(guild.color.toCSS());
+            const guildFillColor = this.colorBuilder.createFillColorFromLineColor(guild.color);
+            dataset.backgroundColor.push(guildFillColor.toCSS());
+            dataset.borderColor.push(guild.color.toCSS());
         });
 
         chartConfig.data.datasets.push(dataset);
@@ -152,10 +156,9 @@ export class ChartBuilder {
 
         await this.dataAggregator.fetchAggregateGuildData().then(guilds => {
 
-            console.log('fetchAggregateGuildData', guilds);
-
             const maxGuildAttributes = this.findMaxAttributeValues(guilds);
-            const guildsSortedForLeaderboard = this.dataSorter.sortGuildsForLeaderboard([...guilds], maxGuildAttributes);
+            let guildsSortedForLeaderboard = this.dataSorter.sortGuildsForLeaderboard([...guilds], maxGuildAttributes);
+            guildsSortedForLeaderboard.length = Math.min(guildsSortedForLeaderboard.length, CHART_MAX_GUILDS.BAR);
 
             chartConfigs.topGuildsChartConfig = this.buildTopGuildsChartConfig(
                 guildsSortedForLeaderboard,

@@ -7,7 +7,7 @@ export class ReactorFactory {
      * @return {string}
      */
     determineGuildId(reactor) {
-        return reactor.guildId !== "0" ? reactor.guildId : `reactor${reactor.id}`;
+        return reactor.guildId !== "0" ? reactor.guildId : `Reactor ${reactor.id}`;
     }
 
     /**

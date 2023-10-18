@@ -3,6 +3,7 @@ export class DoughnutDatasetDTO {
         this.label = "";
         this.data = [];
         this.backgroundColor = [];
+        this.borderColor = [];
         this.hoverOffset = 4;
     }
 }
