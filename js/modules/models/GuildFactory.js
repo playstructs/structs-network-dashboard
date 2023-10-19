@@ -1,10 +1,10 @@
 import {Guild} from "./Guild.js";
-import {ColorBuilder} from "../ColorBuilder.js";
+import {GuildPaletteManager} from "../GuildPaletteManager.js";
 
 export class GuildFactory {
 
     constructor() {
-        this.colorBuilder = new ColorBuilder();
+        this.guildPaletteManager = new GuildPaletteManager();
     }
 
     /**
@@ -15,7 +15,7 @@ export class GuildFactory {
         const guild = new Guild();
         Object.assign(guild, obj);
         guild.name = guild['endpoint']; // Endpoint is being used as name for now
-        guild.color = this.colorBuilder.buildRandom();
+        guild.color = this.guildPaletteManager.getRandomColor();
         return guild;
     }
 }

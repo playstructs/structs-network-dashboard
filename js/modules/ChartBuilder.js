@@ -70,6 +70,19 @@ export class ChartBuilder {
                 line: {
                     borderWidth: 3
                 }
+            },
+            scales: {
+                r: {
+                    ticks: {
+                        backdropColor: 'rgb(28, 52, 68)'
+                    },
+                    grid: {
+                        color: () => 'rgb(42, 127, 79)'
+                    }
+                }
+            },
+            layout: {
+                padding: 40
             }
         }
 
@@ -102,9 +115,20 @@ export class ChartBuilder {
                 }
             },
             scales: {
+                x: {
+                    grid: {
+                        color: () => 'rgb(42, 127, 79)'
+                    }
+                },
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    grid: {
+                        color: () => 'rgb(42, 127, 79)'
+                    }
                 }
+            },
+            layout: {
+                padding: 40
             }
         };
 
@@ -144,6 +168,11 @@ export class ChartBuilder {
         });
 
         chartConfig.data.datasets.push(dataset);
+        chartConfig.options = {
+            layout: {
+                padding: 20
+            }
+        }
 
         return chartConfig;
     }

@@ -1,5 +1,17 @@
+@font-face {
+    font-family: DirectiveZero;
+    src: url(../fonts/DirectiveZeroWid.ttf);
+}
+@font-face {
+    font-family: ExtremeHazard;
+    src: url(../fonts/ExtremeHazard.ttf);
+}
+
 body {
+    background: rgb(28, 52, 68);
     text-align: center;
+    font-family: 'ExtremeHazard', sans-serif;
+    color: rgb(67, 205, 182);
 }
 
 .largeChartWrapper {

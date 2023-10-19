@@ -1,6 +1,7 @@
 import {ChartBuilder} from "../modules/ChartBuilder.js";
 
-Chart.defaults.font.family = 'courier';
+Chart.defaults.font.family = 'DirectiveZero';
+Chart.defaults.color = 'rgb(194, 239, 221)';
 
 const chartBuilder = new ChartBuilder();
 
