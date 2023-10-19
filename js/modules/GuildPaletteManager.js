@@ -8,11 +8,11 @@ export class GuildPaletteManager {
     constructor() {
         this.util = new Util();
         this.structsHighlightPalette = [
-            new Color(67, 205, 182), // [Green]
-            new Color(221, 78, 142), // [Pink]
-            new Color(148, 164, 228), // [Blue]
-            new Color(243, 200, 120), // [Yellow]
-            new Color(238, 125, 105), // [Red]
+            new Color(67, 205, 182),  // 170, 67, 80 [Green]
+            new Color(221, 78, 142), //  333, 65, 87 [Pink]
+            new Color(148, 164, 228), // 228, 35, 89 [Blue]
+            new Color(243, 200, 120), //  39, 51, 95 [Yellow]
+            new Color(238, 125, 105), //   9, 56, 93 [Red]
         ];
     }
 
@@ -95,11 +95,11 @@ export class GuildPaletteManager {
         s /= 100;
         b /= 100;
         const k = (n) => (n + h / 60) % 6;
-        const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
+        const f = (n) => Math.round(255 * b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1))));
         return new Color(
-            255 * f(5),
-            255 * f(3),
-            255 * f(1)
+            f(5),
+            f(3),
+            f(1)
         );
     };
 }
