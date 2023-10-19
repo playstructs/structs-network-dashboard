@@ -7,5 +7,6 @@ export const
         BAR: 15,
         DOUGHNUT: 15,
         RADAR: 3,
-    }
+    },
+    MAX_GUILD_NAME_LENGTH = 15
 ;
