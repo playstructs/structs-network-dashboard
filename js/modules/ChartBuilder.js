@@ -118,12 +118,18 @@ export class ChartBuilder {
                 x: {
                     grid: {
                         color: () => 'rgb(42, 127, 79)'
+                    },
+                    ticks: {
+                        padding: 10
                     }
                 },
                 y: {
                     beginAtZero: true,
                     grid: {
                         color: () => 'rgb(42, 127, 79)'
+                    },
+                    ticks: {
+                        padding: 10
                     }
                 }
             },
