@@ -177,6 +177,11 @@ export class ChartBuilder {
         chartConfig.options = {
             layout: {
                 padding: 20
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
             }
         }
 
