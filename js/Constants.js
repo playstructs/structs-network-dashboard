@@ -1,7 +1,7 @@
 export const
     STRUCTS_API = {
         SCHEME: '//',
-        DOMAIN: 's2.testnet.structs.network:1317'
+        DOMAIN: 's2.testnet.structs.network'
     },
     CHART_MAX_GUILDS = {
         BAR: 15,
