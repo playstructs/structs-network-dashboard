@@ -1,7 +1,7 @@
 export const
     STRUCTS_API = {
-        SCHEME: '//',
-        DOMAIN: 'reactor.oh.energy'
+        SCHEME: 'http://',
+        DOMAIN: 'reactor.oh.energy:1317'
     },
     CHART_MAX_GUILDS = {
         BAR: 15,
